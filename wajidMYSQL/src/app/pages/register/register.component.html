@@ -1,0 +1,92 @@
+<div class="container mt-5">
+  <div *ngIf="registrationSuccess; else registrationForm">
+    <div class="alert alert-success">
+      <h4 class="alert-heading">Registration Successful!</h4>
+      <p>Thank you for registering. You can now log in.</p>
+    </div>
+  </div>
+
+  <ng-template #registrationForm>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" formControlName="name" class="form-control" placeholder="Name"
+          [ngClass]="{'is-invalid': registerForm.get('name')?.invalid && registerForm.get('name')?.touched}">
+        <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="invalid-feedback">
+          Name is required.
+        </div>
+      </div>
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" formControlName="username" class="form-control" placeholder="Username"
+          [ngClass]="{'is-invalid': registerForm.get('username')?.invalid && registerForm.get('username')?.touched}">
+        <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+          class="invalid-feedback">
+          Username is required.
+        </div>
+      </div>
+
+
+
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email"
+          [ngClass]="{'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched}">
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="invalid-feedback">
+          <ng-container *ngIf="registerForm.get('email')?.hasError('required')">Email is required.</ng-container>
+          <ng-container *ngIf="registerForm.get('email')?.hasError('email')">Invalid email format.</ng-container>
+          <ng-container *ngIf="registerForm.get('email')?.hasError('duplicateEmail')">This email is already
+            registered.</ng-container>
+        </div>
+      </div>
+
+      <!-- Mobile -->
+      <div class="form-group">
+        <label for="mobile">Mobile</label>
+        <input type="text" id="mobile" formControlName="mobile" class="form-control" placeholder="Mobile"
+          [ngClass]="{'is-invalid': registerForm.get('mobile')?.invalid && registerForm.get('mobile')?.touched}">
+        <div *ngIf="registerForm.get('mobile')?.invalid && registerForm.get('mobile')?.touched"
+          class="invalid-feedback">
+          <ng-container *ngIf="registerForm.get('mobile')?.hasError('required')">Mobile number is
+            required.</ng-container>
+          <ng-container *ngIf="registerForm.get('mobile')?.hasError('duplicateMobile')">This mobile number is already
+            registered.</ng-container>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" class="form-control" placeholder="Password"
+          [ngClass]="{'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched}">
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          class="invalid-feedback">
+          Password is required.
+        </div>
+      </div>
+
+      <!-- Profile Picture -->
+      <div class="form-group">
+        <label for="photo">Profile Picture</label>
+        <input type="file" id="photo" (change)="onFileSelected($event)" class="form-control-file">
+      </div>
+
+      <!-- Address -->
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" formControlName="address" class="form-control" placeholder="Address"
+          [ngClass]="{'is-invalid': registerForm.get('address')?.invalid && registerForm.get('address')?.touched}">
+        <div *ngIf="registerForm.get('address')?.invalid && registerForm.get('address')?.touched"
+          class="invalid-feedback">
+          Address is required.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+    </form>
+  </ng-template>
+</div>
